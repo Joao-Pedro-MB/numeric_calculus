@@ -4,53 +4,51 @@
 
 Para a simulação dos casos de covid-19 durante a pandemia, utilizaremos o modelo SEIR, que é derivado do modelo SIR, ambos serão brevemente explicados logo abaixo, mas caso não se interesse pela explicação, pule direto para a [análise](#Análise)
 
-# Modelo utilizado
-
 ## Modelo SIR
   esse modelo base consiste em dividir a população em três estágios da doença: S, I e R, onde <span style="color:lightgreen">S - sucetíveis</span>, <span style="color:lightgreen">I - infecciosas</span>, e <span style="color:lightgreen">R - recuperadas</span> consiste em descrever um comportamenteo medio de uma populacao com uma doenca infecciosa. Além disso denotamos o total da população pela letra <span style="color:lightgreen">N</span> sendo que $ N = S + I + R $.
 
  ### Processo de infecção
 
- A cada encontro de um S com outro indivíduo este tem $\frac{I}{N}$ probabilidade de pegar a doença. Podemos modelar esta variacao de S como:
+ A cada encontro de um S com outro indivíduo este tem $ \frac{I}{N} $ probabilidade de pegar a doença. Podemos modelar esta variacao de S como:
 
- $$ \frac{dS}{dt} = -\beta S\frac{I}{N}$$
+ $$ \frac{dS}{dt} = -\beta S \frac{I}{N} $$
 
- onde $\beta$ eh um multiplicador qualquer. Este é o modelo de decremento da população sucetível para a população infectada. Como todos que saem de S vao para I temos que:
+ onde $ \beta $ eh um multiplicador qualquer. Este é o modelo de decremento da população sucetível para a população infectada. Como todos que saem de S vao para I temos que:
 
- $$ \frac{dI}{dt} = \beta S\frac{I}{N} - \gamma I$$
+ $$ \frac{dI}{dt} = \beta S \frac{I}{N} - \gamma I $$
 
-onde $\gamma I$ é o total de pessoas que saem de I a vão para R por intervalo de tempo. Isso também nos da a variação de recuparados:
+onde $ \gamma I $ é o total de pessoas que saem de I a vão para R por intervalo de tempo. Isso também nos da a variação de recuparados:
 
-$$ \frac{dR}{dt} = \gamma I$$
+$$ \frac{dR}{dt} = \gamma I $$
 
 Portanto temos que o modelo é regido pelo seguinte sistema:
 
-$$\begin{cases} \frac{dS}{dt} = -\beta S\frac{I}{N}\\
-\frac{dI}{dt} = \beta S\frac{I}{N} - \gamma I\\
+$$ \begin{cases} \frac{dS}{dt} = -\beta S \frac{I}{N}\\
+\frac{dI}{dt} = \beta S \frac{I}{N} - \gamma I\\
 \frac{dR}{dt} = \gamma I
-\end{cases}$$
+\end{cases} $$
 
  ### Reescrevendo o sistema
 
 O sistema pode ser normalizado da seguinte forma:
 
-$$\begin{cases} \frac{dS}{dt} = -\beta \frac{S}{N}\frac{I}{N} = \beta \bold{S}\bold{I}\\
-\frac{1}{N}\frac{dI}{dt} = \beta S\frac{I}{N} - \gamma I = \beta \bold{S}\bold{I} - \gamma \bold{I}\\
+$$ \begin{cases} \frac{dS}{dt} = -\beta \frac{S}{N} \frac{I}{N} = \beta \bold{S}\bold{I}\\
+\frac{1}{N}\frac{dI}{dt} = \beta S \frac{I}{N} - \gamma I = \beta \bold{S}\bold{I} - \gamma \bold{I}\\
 \frac{1}{N}\frac{dR}{dt} = \gamma \frac{I}{N}
-\frac{1}{N} = \gamma \bold{I}\end{cases}$$
+\frac{1}{N} = \gamma \bold{I}\end{cases} $$
 
 onde as letras em negrito indicam valores de 0 a 1.
 
-Além disso vamos definir novas parâmetros a partir dos parâmetros β e γ originais: $ r_0 = \frac{β}{γ}$ e $T_{inf} = \frac{1}{γ}$. Esse novos parâmetros tem uma interpretação mais natural. Pois O $r_0$ é conhecido como número de reprodução basal e representa o
+Além disso vamos definir novas parâmetros a partir dos parâmetros β e $ \gamma $ originais: $ r_0 = \frac{\beta}{\gamma} $ e $ T_{inf} = \frac{1}{\gamma} $. Esse novos parâmetros tem uma interpretação mais natural. Pois O $ r_0 $ é conhecido como número de reprodução basal e representa o
 número de pessoas que um doente iria infectar em média durante o curso de sua
-doença. O $T_{inf}$ representa o tempo médio que a pessoa fica infecciosa, ou seja a duração média que um doente fica ativamente transmitindo a
+doença. O $ T_{inf} $ representa o tempo médio que a pessoa fica infecciosa, ou seja a duração média que um doente fica ativamente transmitindo a
 doença. Em função desses parâmetros o modelo pode ser reescrito como:
 
-$$\begin{cases}
+$$ \begin{cases}
 \frac{d\bold{S}}{dt} = \frac{r_0}{T_{inf}} \bold{S}\bold{I}\\
 \frac{d\bold{I}}{dt} = \frac{r_0}{T_{inf}} \bold{S}\bold{I} - \frac{1}{T_{inf}} \bold{I}\\
 \frac{d\bold{R}}{dt} = \frac{1}{T_{inf}} \bold{I}
-\end{cases}$$
+\end{cases} $$
 
 
 ## Modelo SEIR
@@ -58,40 +56,39 @@ Este é o modelo que utilizaremos e sua diferença consiste na adição de uma e
 
 Com essa nova etapa podemos utilizar o mesmo procedimeto do modelo anterior para chegar ao seguinte sistema:
 
-$$\begin{cases}
-\frac{dS}{dt} = -\beta S\frac{E}{N}\\
-\frac{dE}{dt} = \beta S\frac{E}{N} - \delta E\\
-\frac{dI}{dt} = \delta E\frac{I}{N} - \gamma I\\
+$$ \begin{cases}
+\frac{dS}{dt} = -\beta S \frac{E}{N}\\
+\frac{dE}{dt} = \beta S \frac{E}{N} - \delta E\\
+\frac{dI}{dt} = \delta E \frac{I}{N} - \gamma I\\
 \frac{dR}{dt} = \delta I
-\end{cases}$$
+\end{cases} $$
 
 que pode ser reescrito como:
 
-$$\begin{cases}
+$$ \begin{cases}
 \frac{d\bold{S}}{dt} = \frac{r_0}{T_{inf}} \bold{S}\bold{I}\\
 \frac{d\bold{E}}{dt} = \frac{r_0}{T_{inf}} \bold{S}\bold{I} - \frac{1}{T_{inc}} \bold{E}\\
 \frac{d\bold{I}}{dt} = \frac{r_0}{T_{inc}} \bold{S}\bold{I} - \frac{1}{T_{inf}} \bold{I}\\
 \frac{d\bold{R}}{dt} = \frac{1}{T_{inf}} \bold{I}
-\end{cases}$$
+\end{cases} $$
 
-$$r_{0} = \frac{\beta}{\gamma}$$
-$$T_{inc} = \frac{1}{\delta}$$
-$$T_{inf} = \frac{1}{\gamma}$$
+$$ r_{0} = \frac{\beta}{\gamma} $$
+$$ T_{inc} = \frac{1}{\delta} $$
+$$ T_{inf} = \frac{1}{\gamma} $$
 
-onde $T_{inc}$ é a taxa de incubação do vírus no hospedeiro.
+onde $ T_{inc} $ é a taxa de incubação do vírus no hospedeiro.
 
-<br/><br/>
 <br/>
 
-
 # Análise
+<br/>
 
 ## Valores iniciais
 Para gerarmos o modelo vamos partir de algumas condições de contorno:
 
-- Número de reprodução basal ($r_0$): 2.5, sendo otimista (adimensional) [2]
+- Número de reprodução basal ($ r_0 $): 2.5, sendo otimista (adimensional) [2]
 
-- Tempos médio de incubação e infecção:$T_{inc}= 5.2$ dias, $T_{inf}= 2.9$ dias [6]
+- Tempos médio de incubação e infecção:$ T_{inc}= 5.2 $ dias, $ T_{inf}= 2.9 $ dias [6]
 
 - Demanda de leitos de UTI: estimava-se que 3% dos doentes precisariamde leito de UTI[3][5]
 
@@ -99,8 +96,9 @@ Para gerarmos o modelo vamos partir de algumas condições de contorno:
 
 - Disponibilidade de leitos de UTI na região Sudeste em 2019 (antes dapandemia): 27 por 100 mil habitantes [4]
 
-- Condição inicial:$S_0 = 0.999999$,$E_0 = 10−6$,$I_0= 0$,$R_0= 0$. Ou seja, há uma pessoa por milhão na população que está exposta e ainda não começou a transmitir a doença. Todo o restante da população é suscetível.
+- Condição inicial:$ S_0 = 0.999999 $,$ E_0 = 10−6 $,$ I_0= 0 $,$ R_0= 0 $. Ou seja, há uma pessoa por milhão na população que está exposta e ainda não começou a transmitir a doença. Todo o restante da população é suscetível.
 
+<br/><br/>
 
 ## Modelo
 
@@ -112,19 +110,27 @@ Gerado pelas seguintes derivadas
 
 ![Modelo derivadas](derivadas.svg)
 
+<br/><br/>
+
 ## População de São Paulo
 
 Agora, para realizarmos as análises, consideraremos a população total de 44,04 milhões de pessoas e uma disponibilidade de leitos de 27 leitos por 100 mil habitantes, ou seja, 11.891 leitos disponíveis.
 
+<br/><br/>
+
 ## Método computacional
 
-O método utilizado para calcular as expressões foi o Método do ponto médio[7] que consiste em ser uma versão melhorada do Método de Euler, ambos tratados em aula. Como não indeintificamos nenhum erro de cancelamento podemos assumir que a precisao de todos os resultados podem atingir precisão de $2.220446049250313 \cdot 10^ {-16}$ o epsilon da máquina em que os resultados foram calculados.
+O método utilizado para calcular as expressões foi o Método do ponto médio[7] que consiste em ser uma versão melhorada do Método de Euler, ambos tratados em aula. Como não indeintificamos nenhum erro de cancelamento podemos assumir que a precisao de todos os resultados podem atingir precisão de $ 2.220446049250313 \cdot 10^ {-16} $ o epsilon da máquina em que os resultados foram calculados.
+
+<br/><br/>
 
 ## Proporção de doentes por dia
 
 Analisando o comportamento do modelo descrito pelo gráfico acima, podemos ver que o pico de infectados por dia acontece entre os dias 95 e 110. Utilizando uma função em Julia para encontrar o pico com uma precisão de 24 horas pudemos ver que, para o total da população mencionada (44,04 milhões) teremos um pico de 3.707.403 doentes, o que corresponde à aproximandamente 9% da população.
 
 Pudemos ver também que este pico ocorreria no dia 103 após o início da simulação, ou seja, do primeiro contaminado.
+
+<br/><br/>
 
 ## Leitos necessários
 
@@ -154,6 +160,8 @@ Ao ampliarmos a análise para os dias fora do pico, fica evidente que a demanda 
 ![falta de leitos](falta_leitos.svg)
 
 Agora realizando uma aproximação da integral dessa curva, que equivale a soma dos valores de execesso de demanda diários, podemos ver que, ao todo, teremos 7.278.377 de dias de leito faltantes, que corespondem à aproximadamente 1.039.769 pessoas sem leito de UTI ao longo dos 498 dias simulados.
+
+<br/><br/>
 
 # Conclusão
 
