@@ -143,7 +143,7 @@ Com isso conseguimos o seguinte gráfico de leitos:
 
 ![leitos por dia](total_internados_dia.svg)
 
-Por esse gráfico podemos ter uma estimativa do total de leitos necessários no pico da pandemia. Com o auxílio de uma função de checagem de máximoem Juli conseguimos o valor exato de 263.858 leiots necessários no pico.
+Por esse gráfico podemos ter uma estimativa do total de leitos necessários no pico da pandemia. Com o auxílio de uma função de checagem de máximo em Julia conseguimos o valor exato de 263.858 leiots necessários no pico.
 
 Agora levando em cosnideração que a disponibilidade de leitos em SP é de 27 por 100.00 habitantes, sabemos que a população em questão dispõe de 11.891 leitos, um valor muito inferior ao demandado.
 
@@ -153,13 +153,13 @@ Ao ampliarmos a análise para os dias fora do pico, fica evidente que a demanda 
 
 ![falta de leitos](falta_leitos.svg)
 
-Agora realizando uma aproximação da integral dessa curva, que equivale a soma dos valores de execesso de demanda diários, podemos ver que, ao todo, teremos 7.278.377 pacientes sem leito de UTI ao longo dos 498 dias simulados.
+Agora realizando uma aproximação da integral dessa curva, que equivale a soma dos valores de execesso de demanda diários, podemos ver que, ao todo, teremos 7.278.377 de dias de leito faltantes, que corespondem à aproximadamente 1.039.769 pessoas sem leito de UTI ao longo dos 498 dias simulados.
 
 # Conclusão
 
 Embora o modelo utilizado seja simples, ele consegue fornecer uma aproximação confiável do que se esperar durante a pandemia cso nenhuma ação seja tomada.
 
-Em resumo, teremos picos de 260.000 leitos por dia e um total de 7.3 milhões de pacientes sem UTI. Este por si só já seria um desastre social e humanitário, mas além disso o colapso do sistema de saúde causaria danos colaterais enormes devido às outras doenças existentes, ao luto coletivo de milhões de paulistanos, a sobregarca dos profissionais de saúde.
+Em resumo, teremos picos de 260.000 leitos por dia e um total de 7.3 milhões de dias de leitos de UTI faltantes. Este por si só já seria um desastre social e humanitário, mas além disso o colapso do sistema de saúde causaria danos colaterais enormes devido às outras doenças existentes, ao luto coletivo de milhões de paulistanos, a sobregarca dos profissionais de saúde.
 
 Em termos financeiros, assumindo que um internado em UTI consome em média R$ 2.102,00 diários [8]. Apenas para os 11.891 leiots existentes o estado gastaria R$ 24.994.882,00. Caso assuma o compromisso de gerar a quantidad de leitos necessários o custo seria de R$ 529.634.634,00 no dia pico, desconsiderando o custo da criação desses leitos.
 
